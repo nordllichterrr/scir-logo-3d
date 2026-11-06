@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCIR 3D Logo — Perspectives</title>
+    <title>SCIR 3D Perspectives</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -33,23 +33,20 @@
             gap: 40px;
             width: 90%;
             max-width: 1200px;
-            /* Перспектива вынесена на уровень сетки, чтобы влиять на дочерние элементы */
-            perspective: 1000px; 
+            perspective: 1500px; /* Общая перспектива для 3D */
         }
 
         .card {
             background: rgba(15, 23, 48, 0.6);
             border: 1px solid #26325a;
             border-radius: 24px;
-            padding: 60px 20px;
+            padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 400px;
             transition: box-shadow 0.3s ease, border-color 0.3s ease;
-            /* Фон карточки плоский */
-            transform-style: flat; 
         }
 
         .card:hover {
@@ -58,13 +55,11 @@
         }
 
         .card h3 {
-            margin-top: 40px;
+            margin-top: 30px;
             font-size: 1.2rem;
             color: #94a3c4;
             text-transform: uppercase;
             letter-spacing: 2px;
-            /* Заголовок тоже плоский */
-            transform: translateZ(0); 
         }
 
         /* --- ГРУППА ЛОГОТИПА (Только она вертится) --- */
@@ -73,140 +68,46 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            /* Включаем 3D для внутренних слоев */
-            transform-style: preserve-3d; 
-            transition: transform 0.5s ease;
-        }
-
-        /* --- CSS ЕДИНОРОГ --- */
-        .unicorn {
-            position: relative;
-            width: 120px;
-            height: 140px;
             transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+            width: 260px;
         }
 
-        /* Голова */
-        .head {
-            position: absolute;
-            bottom: 0;
-            left: 10px;
-            width: 100px;
-            height: 120px;
-            background: linear-gradient(135deg, #ffffff 0%, #d1d9e6 100%);
-            border-radius: 50% 50% 20% 20%;
-            z-index: 3;
-            box-shadow: 
-                inset -10px -10px 20px rgba(0,0,0,0.2),
-                inset 10px 10px 20px rgba(255,255,255,0.8),
-                0 20px 30px rgba(0,0,0,0.5);
-            /* Выдвигаем голову вперед */
-            transform: translateZ(30px);
+        /* Твой логотип как картинка */
+        .logo-img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+            transform: translateZ(20px); /* Выдвигаем логотип вперед */
         }
 
-        /* Ухо */
-        .head::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            right: 10px;
-            width: 20px;
-            height: 30px;
-            background: #ffffff;
-            border-radius: 50% 50% 0 0;
-            transform: rotate(20deg);
-            box-shadow: inset -2px -2px 5px rgba(0,0,0,0.1);
-        }
-
-        /* Грива */
-        .mane {
-            position: absolute;
-            top: 20px;
-            left: -30px;
-            width: 70px;
-            height: 110px;
-            background: linear-gradient(135deg, #8B5CF6, #2EC4A6);
-            border-radius: 50% 20% 20% 50%;
-            z-index: 2;
-            /* Грива чуть позади головы */
-            transform: translateZ(10px) rotate(-15deg);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-
-        /* Рог */
-        .horn {
-            position: absolute;
-            top: -40px;
-            left: 50px;
-            width: 20px;
-            height: 60px;
-            background: linear-gradient(to top, #2EC4A6, #8B5CF6);
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            z-index: 4;
-            /* Рог вылетает сильнее всего */
-            transform: translateZ(50px) rotate(-10deg);
-            box-shadow: 0 0 20px #2EC4A6;
-        }
-
-        /* Тень */
-        .shadow {
-            position: absolute;
-            bottom: -20px;
-            width: 120px;
-            height: 20px;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 50%;
-            filter: blur(10px);
-            z-index: 0;
-            transform: translateZ(-10px);
-        }
-
-        /* Текст SCIR */
-        .text-scir {
-            margin-top: 30px;
-            font-size: 32px;
-            font-weight: 900;
-            letter-spacing: 8px;
-            color: #ffffff;
-            text-shadow: 0 0 15px rgba(0, 209, 178, 0.8);
-            /* Текст на переднем плане */
-            transform: translateZ(40px);
-            z-index: 5;
-        }
-
-        /* --- ПЕРСПЕКТИВЫ (Применяются ТОЛЬКО к .logo-group) --- */
+        /* --- ПЕРСПЕКТИВЫ --- */
         
-        /* 1. Линейная */
+        /* 1. Линейная (плоская) */
         .linear .logo-group {
             transform: rotateY(0deg) rotateX(0deg);
         }
 
-        /* 2. Обратная */
+        /* 2. Обратная (сужается к зрителю) */
         .reverse .logo-group {
-            transform: rotateY(-20deg) rotateX(15deg) scale(1.1);
+            transform: rotateY(-20deg) rotateX(10deg) scale(1.05);
+        }
+        /* Эффект вылета для обратной перспективы */
+        .reverse .logo-img {
+            transform: translateZ(60px) scale(1.1);
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.7));
         }
 
-        /* 3. Воздушная */
+        /* 3. Воздушная (размытие и дымка) */
         .atmospheric .logo-group {
             filter: blur(1px);
         }
-        .atmospheric .head {
-            opacity: 0.8;
-            filter: blur(1px);
+        .atmospheric .logo-img {
+            opacity: 0.7;
+            filter: blur(2px) drop-shadow(0 0 30px #00d1b2);
+            transform: translateZ(0px) scale(0.95);
         }
-        .atmospheric .mane {
-            opacity: 0.6;
-            filter: blur(3px);
-        }
-        .atmospheric .horn {
-            opacity: 0.5;
-            filter: blur(2px);
-        }
-        .atmospheric .text-scir {
-            opacity: 0.6;
-            filter: blur(2px);
-        }
-
     </style>
 </head>
 <body>
@@ -214,44 +115,26 @@
     <h1>SCIR Logo Perspectives</h1>
 
     <div class="grid">
-        <!-- Карточка 1: Линейная -->
+        <!-- 1. Линейная -->
         <div class="card linear">
             <div class="logo-group">
-                <div class="unicorn">
-                    <div class="shadow"></div>
-                    <div class="mane"></div>
-                    <div class="head"></div>
-                    <div class="horn"></div>
-                </div>
-                <div class="text-scir">SCIR</div>
+                <img src="logo1.jpg" alt="SCIR Logo" class="logo-img">
             </div>
             <h3>Линейная</h3>
         </div>
 
-        <!-- Карточка 2: Обратная -->
+        <!-- 2. Обратная -->
         <div class="card reverse">
             <div class="logo-group">
-                <div class="unicorn">
-                    <div class="shadow"></div>
-                    <div class="mane"></div>
-                    <div class="head"></div>
-                    <div class="horn"></div>
-                </div>
-                <div class="text-scir">SCIR</div>
+                <img src="logo1.jpg" alt="SCIR Logo" class="logo-img">
             </div>
             <h3>Обратная</h3>
         </div>
 
-        <!-- Карточка 3: Воздушная -->
+        <!-- 3. Воздушная -->
         <div class="card atmospheric">
             <div class="logo-group">
-                <div class="unicorn">
-                    <div class="shadow"></div>
-                    <div class="mane"></div>
-                    <div class="head"></div>
-                    <div class="horn"></div>
-                </div>
-                <div class="text-scir">SCIR</div>
+                <img src="logo1.jpg" alt="SCIR Logo" class="logo-img">
             </div>
             <h3>Воздушная</h3>
         </div>
