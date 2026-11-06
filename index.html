@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCIR 3D Logo Perspectives</title>
+    <title>SCIR — 2D Perspectives</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -29,14 +29,12 @@
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 40px;
             width: 90%;
-            max-width: 1200px;
-            perspective: 1200px; /* Перспектива для 3D */
+            max-width: 1100px;
         }
 
-        /* Карточка плоская */
         .card {
             background: rgba(15, 23, 48, 0.6);
             border: 1px solid #26325a;
@@ -46,12 +44,12 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 400px;
+            min-height: 380px;
             transition: box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
         .card:hover {
-            box-shadow: 0 0 40px rgba(91, 140, 255, 0.3);
+            box-shadow: 0 0 30px rgba(91, 140, 255, 0.2);
             border-color: #5b8cff;
         }
 
@@ -63,59 +61,53 @@
             letter-spacing: 2px;
         }
 
-        /* Контейнер для вращения (только он в 3D) */
-        .logo-3d-box {
-            width: 250px;
-            height: 250px;
+        /* Контейнер для картинки */
+        .logo-box {
+            width: 220px;
+            height: 220px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transform-style: preserve-3d;
-            transition: transform 0.5s ease;
+            overflow: hidden;
+            border-radius: 20px;
         }
 
-        /* Сама картинка */
         .logo-img {
             width: 100%;
-            height: auto;
-            border-radius: 16px;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.4s ease;
+        }
+
+        /* --- 2D ПЕРСПЕКТИВЫ --- */
+        
+        /* 1. Линейная (вид спереди) */
+        .linear .logo-img {
+            transform: rotate(0deg) scale(1);
+        }
+
+        /* 2. Обратная (наклон и увеличение) */
+        .reverse .logo-img {
+            transform: rotate(-15deg) scale(1.2) skewX(10deg);
             filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
         }
 
-        /* --- ПЕРСПЕКТИВЫ (Вращаем ТОЛЬКО .logo-3d-box) --- */
-        
-        /* 1. Линейная */
-        .linear .logo-3d-box {
-            transform: rotateY(0deg) rotateX(0deg);
-        }
-
-        /* 2. Обратная */
-        .reverse .logo-3d-box {
-            transform: rotateY(-25deg) rotateX(15deg) scale(1.05);
-        }
-        .reverse .logo-img {
-            transform: translateZ(50px); /* Вылет вперед */
-            filter: drop-shadow(0 30px 40px rgba(0,0,0,0.8));
-        }
-
-        /* 3. Воздушная */
-        .atmospheric .logo-3d-box {
-            transform: rotateY(10deg) rotateX(-5deg);
-        }
+        /* 3. Воздушная (сжатие и размытие) */
         .atmospheric .logo-img {
-            filter: blur(2px) drop-shadow(0 0 40px #00d1b2);
-            opacity: 0.8;
+            transform: rotate(10deg) scale(0.85) skewY(-5deg);
+            filter: blur(2px) drop-shadow(0 0 30px #00d1b2);
+            opacity: 0.85;
         }
     </style>
 </head>
 <body>
 
-    <h1>SCIR Logo Perspectives</h1>
+    <h1>SCIR — 2D Perspectives</h1>
 
     <div class="grid">
         <!-- 1. Линейная -->
         <div class="card linear">
-            <div class="logo-3d-box">
+            <div class="logo-box">
                 <img src="logo.jpg" alt="SCIR Logo" class="logo-img">
             </div>
             <h3>Линейная</h3>
@@ -123,7 +115,7 @@
 
         <!-- 2. Обратная -->
         <div class="card reverse">
-            <div class="logo-3d-box">
+            <div class="logo-box">
                 <img src="logo.jpg" alt="SCIR Logo" class="logo-img">
             </div>
             <h3>Обратная</h3>
@@ -131,7 +123,7 @@
 
         <!-- 3. Воздушная -->
         <div class="card atmospheric">
-            <div class="logo-3d-box">
+            <div class="logo-box">
                 <img src="logo.jpg" alt="SCIR Logo" class="logo-img">
             </div>
             <h3>Воздушная</h3>
