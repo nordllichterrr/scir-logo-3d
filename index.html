@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCIR Logo — 3D Perspectives</title>
+    <title>SCIR Logo Perspectives</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@800;900&display=swap');
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -18,15 +16,12 @@
             justify-content: center;
             font-family: 'Inter', sans-serif;
             color: #e9edff;
-            overflow-x: hidden;
         }
 
         h1 {
             text-align: center;
             margin-bottom: 40px;
             font-size: 2rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
             color: #00d1b2;
             text-shadow: 0 0 20px rgba(0, 209, 178, 0.5);
         }
@@ -38,7 +33,6 @@
             width: 90%;
             max-width: 1200px;
             perspective: 1000px;
-            margin-bottom: 60px;
         }
 
         .card {
@@ -50,9 +44,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 300px;
-            position: relative;
-            overflow: hidden;
+            min-height: 350px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
@@ -65,96 +57,52 @@
             margin-top: 20px;
             font-size: 1.2rem;
             color: #94a3c4;
-            text-align: center;
-            z-index: 10;
         }
 
         .logo-container {
-            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             transform-style: preserve-3d;
+            width: 100%;
         }
 
-        .unicorn {
-            font-size: 80px;
-            filter: drop-shadow(0 0 15px rgba(0, 209, 178, 0.8));
+        /* ТВОЙ ЛОГОТИП */
+        .logo-img {
+            width: 280px;
+            height: 160px;
+            background-image: url('logo1.jpg'); /* Твоя картинка */
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 10px;
+            filter: drop-shadow(0 0 20px rgba(0, 209, 178, 0.6));
             transform: translateZ(20px);
-            z-index: 2;
-            animation: float 4s ease-in-out infinite;
         }
 
-        .gamma {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: #ff5b8c;
-            color: #070b16;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 16px;
-            box-shadow: 0 0 15px #ff5b8c;
-            transform: translateZ(30px);
-            z-index: 3;
-        }
-
-        .text-scir {
-            font-size: 32px;
-            font-weight: 900;
-            letter-spacing: 8px;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-            margin-top: 10px;
-            transform: translateZ(10px);
-            z-index: 1;
-        }
-
-        .perspective-linear .logo-container {
+        /* 1. Линейная */
+        .linear .logo-container {
             transform: rotateY(0deg) rotateX(0deg);
         }
 
-        .perspective-reverse .logo-container {
-            transform: rotateY(-15deg) rotateX(10deg) scale(1.1);
+        /* 2. Обратная */
+        .reverse .logo-container {
+            transform: rotateY(-20deg) rotateX(15deg) scale(1.1);
         }
-        
-        .perspective-reverse .unicorn {
-            transform: translateZ(40px) rotateY(10deg);
+        .reverse .logo-img {
+            transform: translateZ(60px);
         }
 
-        .perspective-atmospheric .logo-container {
+        /* 3. Воздушная */
+        .atmospheric .logo-container {
             filter: blur(1px);
         }
-
-        .perspective-atmospheric .unicorn {
-            filter: drop-shadow(0 0 30px rgba(0, 209, 178, 0.9)) blur(0.5px);
-            transform: translateZ(10px) scale(0.9);
-            opacity: 0.9;
-        }
-
-        .perspective-atmospheric .text-scir {
-            filter: blur(2px);
-            opacity: 0.6;
+        .atmospheric .logo-img {
+            filter: blur(2px) drop-shadow(0 0 40px #00d1b2);
+            opacity: 0.7;
             transform: translateZ(0px) scale(0.95);
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
         }
 
-        .perspective-atmospheric .gamma {
-            filter: blur(1px);
-            transform: translateZ(20px) scale(0.9);
-            opacity: 0.8;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px) translateZ(20px); }
-            50% { transform: translateY(-10px) translateZ(20px); }
-            100% { transform: translateY(0px) translateZ(20px); }
-        }
     </style>
 </head>
 <body>
@@ -162,35 +110,23 @@
     <h1>SCIR Logo Perspectives</h1>
 
     <div class="grid">
-        <div class="card perspective-linear">
+        <div class="card linear">
             <div class="logo-container">
-                <div class="unicorn">
-                    🦄
-                    <div class="gamma">γ</div>
-                </div>
-                <div class="text-scir">SCIR</div>
+                <div class="logo-img"></div>
             </div>
             <h3>Линейная перспектива</h3>
         </div>
 
-        <div class="card perspective-reverse">
+        <div class="card reverse">
             <div class="logo-container">
-                <div class="unicorn">
-                    🦄
-                    <div class="gamma">γ</div>
-                </div>
-                <div class="text-scir">SCIR</div>
+                <div class="logo-img"></div>
             </div>
             <h3>Обратная перспектива</h3>
         </div>
 
-        <div class="card perspective-atmospheric">
+        <div class="card atmospheric">
             <div class="logo-container">
-                <div class="unicorn">
-                    🦄
-                    <div class="gamma">γ</div>
-                </div>
-                <div class="text-scir">SCIR</div>
+                <div class="logo-img"></div>
             </div>
             <h3>Воздушная перспектива</h3>
         </div>
